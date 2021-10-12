@@ -1,0 +1,7 @@
+Instalar python
+
+Instalar firefox
+
+Chrome driver
+
+ pip install selenium

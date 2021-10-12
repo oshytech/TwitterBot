@@ -9,20 +9,21 @@ class TwitterBot:
         self.username = username
         self.password = password
         self.bot = webdriver.Chrome(
-            executable_path='D:\\Oshytech\\Codigo\\Python\\TwitterBotSelenium\\chromedriver.exe')
+            executable_path='D:\\Oshytech\\Codigo\\Python\\TwitterBot\\chromedriver.exe')
 
     def login(self):
         bot = self.bot
         bot.get('https://twitter.com/login')
-        time.sleep(2)
-
-        email = bot.find_element_by_xpath('//input[@name="session[username_or_email]"]')
-        password = bot.find_element_by_xpath('//input[@name="session[password]"]')
+        # En la nueva versión del login de twitter, el login está segmentado en dos partes
+        time.sleep(3)
+        email = bot.find_element_by_xpath('//input[@name="username"]')
         # limpiamos por si las moscas
-        password.clear()
         email.clear()
-        # cargamos los datos
         email.send_keys(self.username)
+        email.send_keys(Keys.RETURN)
+        time.sleep(3)
+
+        password = bot.find_element_by_xpath('//input[@name="password"]')
         password.send_keys(self.password)
         password.send_keys(Keys.RETURN)
         time.sleep(3)
@@ -51,7 +52,6 @@ class TwitterBot:
                 time.sleep(20)
 
             time.sleep(2)
-
 
 
 tb = TwitterBot('oshytest', 'RskTkkHq')
